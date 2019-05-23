@@ -6,10 +6,10 @@ class RuleRow extends Component {
     const { score, name, doScore, description } = this.props;
     const disabled = score !== undefined;
     return (
-      <tr className={`RuleRow RuleRow-${disabled ? "disabled" : "active"}`} onClick={disabled ? null : doScore }>
-        <td className="RuleRow-name">{name}</td>
-        <td className="RuleRow-score">{disabled ? score : description}</td>
-      </tr>
+      <div className={`RuleRow-${disabled ? "disabled" : "active"} RuleRow`} onClick={disabled ? null : doScore }>
+        <div className="RuleRow-name">{name}</div>
+        <div className="RuleRow-score">{disabled ? score : description}</div>
+      </div>
     )
   }
 }

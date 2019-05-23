@@ -1,5 +1,9 @@
 .RuleRow {
+  display: flex;
+  justify-content: space-around;
+  margin: 0 1em 0 1em;
   transition: all 0.2s;
+  -webkit-transition: all 0.2s;
 }
 .RuleRow-active:hover {
   cursor: pointer;
@@ -16,6 +20,8 @@
   );
   background-size: 300% 300%;
   animation: Slide 1s ease 1;
+  -webkit-animation: Slide 1s ease 1;
+
 }
 
 @keyframes Slide {
@@ -26,6 +32,16 @@
     background-position: 0% 51%;
   }
 }
+
+@-webkit-keyframes Slide {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 51%;
+  }
+}
+
 .RuleRow-disabled td:first-child {
   text-decoration: line-through;
 }
@@ -34,7 +50,7 @@
   cursor: not-allowed;
 }
 
-.RuleRow td {
+.RuleRow {
   padding: 0.3em;
   border-bottom: solid 1px black;
 }

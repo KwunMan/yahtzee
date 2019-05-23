@@ -4,7 +4,6 @@
   font-size: 0.9rem;
   min-width: 420px;
   background-color: white;
-  /* padding: 1em; */
 }
 
 @media only screen and (max-width: 420px) {
@@ -14,7 +13,6 @@
     font-size: 0.9rem;
     min-width: 320px;
     background-color: white;
-    /* padding: 1em; */
   }
 }
 

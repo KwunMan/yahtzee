@@ -75,9 +75,7 @@ class Game extends Component {
       locked: Array(NUM_DICE).fill(false)
     }));
     if (this.state.rolling) {
-      setTimeout(1000, () => {
-        this.animateRoll()
-      });
+      setTimeout(1000);
     } else {
       this.animateRoll()
     }
@@ -85,10 +83,7 @@ class Game extends Component {
 
   restartGame = () => {
     if (this.state.rolling) {
-      setTimeout(1000, () => {
-        this.setState(initialState)
-        this.animateRoll()
-      });
+      setTimeout(1000);
     } else {
       this.setState(initialState)
       this.animateRoll()
@@ -127,7 +122,7 @@ class Game extends Component {
             />
           </section>
         </header>
-        <ScoreTable doScore={this.doScore} scores={scores} />
+        <ScoreTable rolling={rolling} doScore={this.doScore} scores={scores} />
       </div>
     );
   }
