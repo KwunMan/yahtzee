@@ -1,0 +1,13 @@
+.Dice {
+  margin: 1em 2.5em;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media only screen and (max-width: 420px) {
+  .Dice {
+    margin: 0.5em;
+    display: flex;
+    justify-content: space-between;
+  }
+}
