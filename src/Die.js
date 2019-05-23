@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiceOne, faDiceTwo, faDiceThree, faDiceFour, faDiceFive, faDiceSix } from '@fortawesome/pro-solid-svg-icons';
 
 class Die extends Component {
-
   static defaultProps = {
     dieFace: [faDiceOne, faDiceTwo, faDiceThree, faDiceFour, faDiceFive, faDiceSix],
     val: 6
@@ -14,7 +13,6 @@ class Die extends Component {
   }
   render() {
     const { locked, val, disabled, rolling, dieFace } = this.props;
-
     return (
       <FontAwesomeIcon 
         disabled={disabled} 
