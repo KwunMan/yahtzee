@@ -3,3 +3,7 @@ dist
 /node_modules
 yarn-error.log
 .env
+src/*
+public/*
+build/static/css/*.map
+build/static/js/*.map
