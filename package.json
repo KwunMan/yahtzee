@@ -2,6 +2,10 @@
   "name": "yahtzee",
   "version": "0.1.0",
   "private": true,
+  "engine": {
+    "node": "10.15.3",
+    "yarn": "1.15.2"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.18",
     "@fortawesome/pro-solid-svg-icons": "^5.8.2",
