@@ -16,11 +16,11 @@
   }
 }
 
-.ScoreTable table {
-  width: 100%;
-  margin: 0 auto;
-  padding: 1em;
-  min-width: 320px;
+.ScoreTable h3 {
+  font-weight: 600;
+  font-size: 1.8em;
+  margin: 0 0 0.5em 0;
+  padding-bottom: 1em;
 }
 
 .ScoreTable-section {

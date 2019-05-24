@@ -21,7 +21,6 @@
   background-size: 300% 300%;
   animation: Slide 1s ease 1;
   -webkit-animation: Slide 1s ease 1;
-
 }
 
 @keyframes Slide {

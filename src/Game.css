@@ -15,12 +15,7 @@ h2 {
   border-bottom: 2px solid #0088ff;
   display: inline-block;
 }
-h3 {
-  font-weight: 100;
-  font-size: 1.5em;
-  margin: 0.2em;
-  padding-bottom: 1em;
-}
+
 .Game-dice-section {
   width: 100%;
   margin-left: auto;

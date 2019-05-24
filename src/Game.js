@@ -25,8 +25,9 @@ const initialState = {
     smallStraight: undefined,
     largeStraight: undefined,
     yahtzee: undefined,
-    chance: undefined
-  }
+    chance: undefined,
+    bonus: 0
+  },
 };
 
 class Game extends Component {
@@ -38,7 +39,7 @@ class Game extends Component {
 
   animateRoll = () => {
     this.setState({ rolling: true }, () => {
-      setTimeout(this.roll, 1000)
+      setTimeout(this.roll, 1000) // animate rolling action for 1 second
     });
   }
 
@@ -74,22 +75,22 @@ class Game extends Component {
       rollsLeft: NUM_ROLLS,
       locked: Array(NUM_DICE).fill(false)
     }));
-    if (this.state.rolling) {
-      setTimeout(1000);
-    } else {
-      this.animateRoll()
-    }
+    this.state.rolling ? setTimeout(1000) : this.animateRoll(); // disable scoring for 1 second when dice are rolling
   }
 
   restartGame = () => {
     if (this.state.rolling) {
-      setTimeout(1000);
+      setTimeout(1000); // disable restart for 1 second when dice are rolling
     } else {
       this.setState(initialState)
       this.animateRoll()
     }
   }
 
+  gameOver() {
+    // determine if the game is over by checking if all rows in the ScoreTable have been clicked
+    return Object.keys(this.state.scores).every(key => this.state.scores[key] !== undefined)
+  }
 
   render() {
     const { dice, locked, rollsLeft, scores, rolling } = this.state;
@@ -108,10 +109,10 @@ class Game extends Component {
             <div className='Game-button-wrapper'>
               <button
                 className='Game-reroll'
-                disabled={locked.every(x => x) || rollsLeft === 0 || rolling }
+                disabled={locked.every(x => x) || rollsLeft === 0 || rolling || this.gameOver()} //disable button when all dice locked, rolling, no rolls left, or game over 
                 onClick={this.animateRoll}
               >
-                {rollsLeft} Rolls Left
+                {this.gameOver() ? "Game Over" : rollsLeft + " Rolls Left"}
               </button>
             </div>
             <FontAwesomeIcon

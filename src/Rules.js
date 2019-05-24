@@ -37,6 +37,7 @@ class Rule {
  * Used for rules like "sum of all ones"
  */
 
+
 class TotalOneNumber extends Rule {
   evalRoll = dice => {
     return this.val * this.count(dice, this.val);
@@ -50,7 +51,6 @@ class TotalOneNumber extends Rule {
 
 class SumDistro extends Rule {
   evalRoll = dice => {
-    // do any of the counts meet of exceed this distro?
     return this.freq(dice).some(c => c >= this.count) ? this.sum(dice) : 0;
   };
 }
@@ -59,17 +59,24 @@ class SumDistro extends Rule {
 
 class FullHouse extends Rule {
   evalRoll = dice => {
-    const d = new Set(dice);
-    return d.size === 2 ? this.score : 0;
+    return this.freq(dice).includes(2) && this.freq(dice).includes(2) ? this.score : 0;
   }
 }
 
 /** Check for small straights. */
 
 class SmallStraight extends Rule {
-  // TODO
   evalRoll = dice => {
-    return (dice.includes(1,2,3,4) || dice.includes(2,3,4,5) || dice.includes(3,4,5,6)) ? this.score : 0;
+    const d = new Set(dice);
+    // straight can be 234 + either 1 or 5
+    if (d.has(2) && d.has(3) && d.has(4) && (d.has(1) || d.has(5)))
+      return this.score;
+
+    // or 345 + either 2 or 6
+    if (d.has(3) && d.has(4) && d.has(5) && (d.has(2) || d.has(6)))
+      return this.score;
+
+    return 0;
   };
 }
 
@@ -78,8 +85,6 @@ class SmallStraight extends Rule {
 class LargeStraight extends Rule {
   evalRoll = dice => {
     const d = new Set(dice);
-
-    // large straight must be 5 different dice & only one can be a 1 or a 6
     return d.size === 5 && (!d.has(1) || !d.has(6)) ? this.score : 0;
   };
 }
@@ -88,7 +93,6 @@ class LargeStraight extends Rule {
 
 class Yahtzee extends Rule {
   evalRoll = dice => {
-    // all dice must be the same
     return this.freq(dice)[0] === 5 ? this.score : 0;
   };
 }
@@ -100,6 +104,9 @@ const threes = new TotalOneNumber({ val: 3, description: "3 point per 3"});
 const fours = new TotalOneNumber({ val: 4, description: "4 point per 4"});
 const fives = new TotalOneNumber({ val: 5, description:  "5 point per 5"});
 const sixes = new TotalOneNumber({ val: 6, description: "6 point per 6"});
+
+const bonus = { score: 35, description: "35 points if Upper Total >= 63 "};
+
 
 // three/four of kind score as sum of all dice
 const threeOfKind = new SumDistro({ count: 3, description: "Sum all dice if 3 are the same"});
@@ -131,5 +138,6 @@ export {
   smallStraight,
   largeStraight,
   yahtzee,
-  chance
+  chance,
+  bonus
 };

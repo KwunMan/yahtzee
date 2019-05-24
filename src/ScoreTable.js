@@ -1,10 +1,13 @@
 import React from 'react';
 import RuleRow from './RuleRow';
 import './ScoreTable.css';
-import { ones, twos, threes, fours, fives, sixes, threeOfKind, fourOfKind, fullHouse, smallStraight, largeStraight, yahtzee, chance } from './Rules';
-
+import { ones, twos, threes, fours, fives, sixes, threeOfKind, fourOfKind, fullHouse, smallStraight, largeStraight, yahtzee, chance, bonus } from './Rules';
 
 const ScoreTable = ({ scores, doScore, rolling }) => {
+  function upperTotal() {
+    const { ones, twos, threes, fours, fives, sixes } = scores;
+    return (ones || 0) + (twos || 0) + (threes || 0) + (fours || 0) + (fives || 0) + (sixes || 0);
+  }
   function calculateTotalScore() {
     let totalScore = 0;
     Object.keys(scores).forEach(key => {
@@ -22,8 +25,10 @@ const ScoreTable = ({ scores, doScore, rolling }) => {
             <RuleRow name="Threes" score={scores.threes} description={threes.description} doScore={evt => rolling ? setTimeout(1000) : doScore("threes", threes.evalRoll)} />
             <RuleRow name="Fours" score={scores.fours} description={fours.description} doScore={evt => rolling ? setTimeout(1000) : doScore("fours", fours.evalRoll)} />
             <RuleRow name="Fives" score={scores.fives} description={fives.description} doScore={evt => rolling ? setTimeout(1000) : doScore("fives", fives.evalRoll)} />
-            <RuleRow name="Sixes" score={scores.sixes} description={sixes.description} doScore={evt => rolling ? setTimeout(1000) : doScore("sixes", fives.evalRoll)} />
+            <RuleRow name="Sixes" score={scores.sixes} description={sixes.description} doScore={evt => rolling ? setTimeout(1000) : doScore("sixes", sixes.evalRoll)} />
         </div>
+        <RuleRow name="Upper Total" score={upperTotal()} doScore={undefined} />        
+        <RuleRow name="Bonus" score={upperTotal() > 62 ? 35 : undefined} description={bonus.description} doScore={undefined} />
       </section>
       <section className="ScoreTable-section ScoreTable-section-lower">
         <h2>Lower</h2>
@@ -37,7 +42,7 @@ const ScoreTable = ({ scores, doScore, rolling }) => {
             <RuleRow name="Chance" score={scores.chance} description={chance.description} doScore={evt => rolling ? setTimeout(1000) : doScore("chance", chance.evalRoll)} />
         </div>
         <h2>Total score</h2>
-        <h3>{calculateTotalScore()} points</h3>
+        <h3>{calculateTotalScore() + (upperTotal() > 62 ? 35 : 0)} points</h3>
       </section>
     </div>
   )
