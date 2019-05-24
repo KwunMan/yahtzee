@@ -59,7 +59,7 @@ class SumDistro extends Rule {
 
 class FullHouse extends Rule {
   evalRoll = dice => {
-    return this.freq(dice).includes(2) && this.freq(dice).includes(2) ? this.score : 0;
+    return this.freq(dice).includes(2) && this.freq(dice).includes(3) ? this.score : 0;
   }
 }
 
@@ -97,7 +97,7 @@ class Yahtzee extends Rule {
   };
 }
 
-// ones, twos, etc score as sum of that value
+// Ones, twos, etc score as sum of that value
 const ones = new TotalOneNumber({ val: 1, description: "1 point per 1"});
 const twos = new TotalOneNumber({ val: 2, description: "2 point per 2"});
 const threes = new TotalOneNumber({ val: 3, description: "3 point per 3"});

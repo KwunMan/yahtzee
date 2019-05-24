@@ -8,13 +8,15 @@ const ScoreTable = ({ scores, doScore, rolling }) => {
     const { ones, twos, threes, fours, fives, sixes } = scores;
     return (ones || 0) + (twos || 0) + (threes || 0) + (fours || 0) + (fives || 0) + (sixes || 0);
   }
+  
   function calculateTotalScore() {
     let totalScore = 0;
     Object.keys(scores).forEach(key => {
       if(scores[key]) totalScore += scores[key];
     });
-    return totalScore;
+    return totalScore + (upperTotal() > 62 ? 35 : 0);
   }
+
   return (
     <div className="ScoreTable">
       <section className="ScoreTable-section">
@@ -42,7 +44,7 @@ const ScoreTable = ({ scores, doScore, rolling }) => {
             <RuleRow name="Chance" score={scores.chance} description={chance.description} doScore={evt => rolling ? setTimeout(1000) : doScore("chance", chance.evalRoll)} />
         </div>
         <h2>Total score</h2>
-        <h3>{calculateTotalScore() + (upperTotal() > 62 ? 35 : 0)} points</h3>
+        <h3>{calculateTotalScore()} points</h3>
       </section>
     </div>
   )
